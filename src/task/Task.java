@@ -26,7 +26,9 @@ public class Task {
     }
 
     public void develop(float workUnit) {
+        System.out.println("avant "+this.workUnit);
         this.workUnit = this.workUnit - workUnit;
+        System.out.println("apres "+this.workUnit);
     }
     
     public boolean isOver() {

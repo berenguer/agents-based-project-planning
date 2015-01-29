@@ -76,7 +76,7 @@ public class Simulation {
 
     public void hiringStrategy(Agent agent) {
         float maxWorkUnit = 0f;
-        int task = -1;
+        Task task = null;
         if (agent.getTask() != null) {
             if (agent.getTask().isOver()) {
                 agent.removeFromTask();
@@ -85,16 +85,15 @@ public class Simulation {
 
         // find a mandatory task free
         for (int i = 0; i < this.mandatoryTasks.size(); i++) {
-            if ((this.mandatoryTasks.get(i).agents.size() < this.mandatoryTasks
-                    .get(i).maximumDevelopers)
+            if ((this.mandatoryTasks.get(i).agents.size() < this.mandatoryTasks.get(i).maximumDevelopers)
                     & (this.mandatoryTasks.get(i).workUnit > maxWorkUnit)) {
                 maxWorkUnit = this.mandatoryTasks.get(i).workUnit;
-                task = i;
+                task = this.mandatoryTasks.get(i);
             }
         }
-        if (task != -1) {
-            System.out.println("ass1");
-            this.mandatoryTasks.get(task).attachDeveloper(agent);
+        if (task != null) {
+            agent.attachTask(task);
+            task.attachDeveloper(agent);
         }
         // else find an optionnal task free
         else {
@@ -103,12 +102,12 @@ public class Simulation {
                         .get(i).maximumDevelopers)
                         & (this.optionnalTasks.get(i).workUnit > maxWorkUnit)) {
                     maxWorkUnit = this.optionnalTasks.get(i).workUnit;
-                    task = i;
+                    task = this.optionnalTasks.get(i);
                 }
             }
-            if (task != -1) {
-                System.out.println("ass2");
-                this.optionnalTasks.get(task).attachDeveloper(agent);
+            if (task != null) {
+                agent.attachTask(task);
+                task.attachDeveloper(agent);
             }
         }
 

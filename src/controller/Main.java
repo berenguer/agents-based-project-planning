@@ -8,6 +8,7 @@ import task.Task;
 public class Main {
 
     public static void main(String[] args) {
+
         ArrayList<Agent> agents = new ArrayList<Agent>(8); 
         for (int i = 0; i < 8; i++) {
             Agent agent = new Agent();
@@ -26,6 +27,7 @@ public class Main {
         }
         Simulation simulation = new Simulation(180, agents, mandatoryTasks, optionnalTasks);
         simulation.run();
+        
     }
-
+    
 }
