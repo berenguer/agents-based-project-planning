@@ -6,20 +6,23 @@ import agent.Agent;
 
 public class Task {
 
+    /**
+     * The equivalent of one man-week necessary.
+     */
     public float workUnit;
     
     public int maximumDevelopers;
     
     public ArrayList<Agent> agents;
     
-    public boolean isOptionnal;
+    public boolean isMandatory;
     
-    public Task(float workUnit, boolean isOptionnal, int maximumDevelopers) {
+    public Task(float workUnit, boolean isMandatory, int maximumDevelopers) {
         super();
         this.workUnit = workUnit;
         this.maximumDevelopers = maximumDevelopers;
         this.agents = new ArrayList<Agent>(maximumDevelopers);
-        this.isOptionnal = isOptionnal;
+        this.isMandatory = isMandatory;
     }
 
     public void develop(float workUnit) {

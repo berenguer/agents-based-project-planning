@@ -32,14 +32,25 @@ public class Agent {
     }
 
     public void action() {
-        this.task.develop(this.workUnit);
-        this.workUnitAll = this.workUnitAll + this.workUnit;
-        this.workUnit = 1;        
+        if (this.task != null) {
+            this.task.develop(this.workUnit);
+            this.workUnitAll = this.workUnitAll + this.workUnit;
+            this.workUnit = 1;   
+        }
+    }
+    
+    public Task getTask() {
+        return this.task;
     }
 
     public void attachTask(Task task) {
         this.task = task;
         this.workUnit = 0.5f;
+    }
+    
+    public void removeFromTask() {
+        this.task.agents.remove(this);
+        this.task = null;
     }
 
 }
