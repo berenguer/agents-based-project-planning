@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import java.util.Collections;
+
 import model.agent.Agent;
 import model.task.Task;
 
@@ -17,6 +19,8 @@ public class Simulation {
     public ArrayList<Task> mandatoryTasks;
 
     public ArrayList<Task> optionnalTasks;
+    
+    public LoggerSoup logger;
 
     public Simulation(int deadline, ArrayList<Agent> agents,
             ArrayList<Task> mandatoryTasks, ArrayList<Task> optionnalTasks) {
@@ -26,26 +30,12 @@ public class Simulation {
         this.agents = agents;
         this.mandatoryTasks = mandatoryTasks;
         this.optionnalTasks = optionnalTasks;
+        this.logger = new LoggerSoup(this.agents, this.mandatoryTasks, this.optionnalTasks);
     }
     
-    public boolean mandatoryFinished() {
-        for (int i = 0; i < this.mandatoryTasks.size(); i++) {
-            if (!this.mandatoryTasks.get(i).isOver()) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public boolean optionnalFinished() {       
-        for (int i = 0; i < this.optionnalTasks.size(); i++) {
-            if (!this.optionnalTasks.get(i).isOver()) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
+    /**
+     * Run simulation. Calls next() until the deadline or if the planning is complete.
+     */
     public void run() {
         while (this.deadline > 0) {
             if (mandatoryFinished() & optionnalFinished()) {
@@ -53,23 +43,22 @@ public class Simulation {
                 break;
             } else {
                 next();
+                this.logger.printTaskOver(this.nbTour);
             }
             this.deadline--;
+            this.nbTour++;
         }
-        if(mandatoryFinished())
-        {
+        if (mandatoryFinished()) {
             System.out.println("Mandatory over =)");
         } else {
-            System.out.println("you loose");
+            System.out.println("You loose");
         }
     }
 
-    public void next() {
+    public void next() {     
         for (Agent agent : this.agents) {
-            
             if ((agent.getTask() == null) || agent.getTask().isOver()) {
                 hiringStrategy(agent);
-                System.out.println("hiring");
             }
             agent.action();
         }
@@ -97,11 +86,16 @@ public class Simulation {
                 agent.removeFromTask();
             }
         }
+        
+        // simulate realistic uncertainty before choosing
+        Collections.shuffle(this.mandatoryTasks);
+        Collections.shuffle(this.optionnalTasks);
 
         // find a mandatory task free
         for (int i = 0; i < this.mandatoryTasks.size(); i++) {
             if ((this.mandatoryTasks.get(i).agents.size() < this.mandatoryTasks.get(i).maximumDevelopers)
-                    & (this.mandatoryTasks.get(i).workUnit > maxWorkUnit)) {
+                    & (this.mandatoryTasks.get(i).workUnit > maxWorkUnit)
+                        & (!this.mandatoryTasks.get(i).isOver())) {
                 maxWorkUnit = this.mandatoryTasks.get(i).workUnit;
                 task = this.mandatoryTasks.get(i);
             }
@@ -115,7 +109,8 @@ public class Simulation {
             for (int i = 0; i < this.optionnalTasks.size(); i++) {
                 if ((this.optionnalTasks.get(i).agents.size() < this.optionnalTasks
                         .get(i).maximumDevelopers)
-                        & (this.optionnalTasks.get(i).workUnit > maxWorkUnit)) {
+                        & (this.optionnalTasks.get(i).workUnit > maxWorkUnit)
+                            & (!this.optionnalTasks.get(i).isOver())) {
                     maxWorkUnit = this.optionnalTasks.get(i).workUnit;
                     task = this.optionnalTasks.get(i);
                 }
@@ -126,6 +121,24 @@ public class Simulation {
             }
         }
 
+    }
+    
+    public boolean mandatoryFinished() {
+        for (int i = 0; i < this.mandatoryTasks.size(); i++) {
+            if (!this.mandatoryTasks.get(i).isOver()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean optionnalFinished() {       
+        for (int i = 0; i < this.optionnalTasks.size(); i++) {
+            if (!this.optionnalTasks.get(i).isOver()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

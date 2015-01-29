@@ -17,22 +17,25 @@ public class Task {
     
     public boolean isMandatory;
     
+    public boolean isOver;
+    
     public Task(float workUnit, boolean isMandatory, int maximumDevelopers) {
         super();
         this.workUnit = workUnit;
         this.maximumDevelopers = maximumDevelopers;
         this.agents = new ArrayList<Agent>(maximumDevelopers);
         this.isMandatory = isMandatory;
+        this.isOver = false;
     }
     
     public void updateWork(float workUnit) {
-        this.workUnit = workUnit;
+        if (!isOver()) {
+            this.workUnit = workUnit;
+        }
     }
 
     public void develop(float workUnit) {
-        System.out.println("avant "+this.workUnit);
         this.workUnit = this.workUnit - workUnit;
-        System.out.println("apres "+this.workUnit);
     }
     
     public boolean isOver() {
