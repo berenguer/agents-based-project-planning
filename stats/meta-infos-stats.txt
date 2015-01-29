@@ -1,0 +1,1 @@
+1 4 dév, 8 mandatory Task(5, true, 3), 20 optionnal Task(3, false, 3)
