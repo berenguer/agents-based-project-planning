@@ -2,8 +2,8 @@ package controller;
 
 import java.util.ArrayList;
 
-import agent.Agent;
-import task.Task;
+import model.agent.Agent;
+import model.task.Task;
 
 public class Main {
 

@@ -1,8 +1,8 @@
-package task;
+package model.task;
 
 import java.util.ArrayList;
 
-import agent.Agent;
+import model.agent.Agent;
 
 public class Task {
 
@@ -23,6 +23,10 @@ public class Task {
         this.maximumDevelopers = maximumDevelopers;
         this.agents = new ArrayList<Agent>(maximumDevelopers);
         this.isMandatory = isMandatory;
+    }
+    
+    public void updateWork(float workUnit) {
+        this.workUnit = workUnit;
     }
 
     public void develop(float workUnit) {

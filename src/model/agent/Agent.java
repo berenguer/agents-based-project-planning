@@ -1,5 +1,5 @@
-package agent;
-import task.Task;
+package model.agent;
+import model.task.Task;
 
 
 public class Agent {

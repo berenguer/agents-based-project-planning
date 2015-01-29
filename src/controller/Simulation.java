@@ -1,9 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import agent.Agent;
-import task.Task;
+import model.agent.Agent;
+import model.task.Task;
 
 public class Simulation {
 
@@ -71,6 +72,20 @@ public class Simulation {
                 System.out.println("hiring");
             }
             agent.action();
+        }
+        for (Task task : this.mandatoryTasks) {
+            estimateWorkStrategy(task);
+        }
+    }
+    
+    public void estimateWorkStrategy(Task task) {
+        Random random = new Random();
+        int signe = random.nextInt(2);
+        float delay = random.nextFloat();
+        if (signe == 1) {
+            task.updateWork(task.workUnit + delay);
+        } else {
+            task.updateWork(task.workUnit - delay);
         }
     }
 
