@@ -1,1 +1,14 @@
-1 4 dév, 8 mandatory Task(5, true, 3), 20 optionnal Task(3, false, 3)
+- 1 4 dév, 8 mandatory Task(5, true, 3), 20 optionnal Task(3, false, 3)
+- 2 abscisse nombre de tour (WorkUnit), ordonnées nombre de tâches
+    mandatory Task(5, true, 3)
+    optionnal Task(3, false, 3)
+    -> en vert taches obligatoires avec 6 développeurs permet de savoir au bout de combien de temps nous pouvons terminer le projet, et le livrer.
+        Permet aussi de savoir combien de tâches optionnelles pourraient être réalisées et en combien de WorkUnit (2, 3, 4 semaines par exemple).
+        
+-3 5 simulations avec les mêmes paramètres : influence de l'aléatoire et l'évolution du nombre de WorkUnit nécessaires recalculées à chaque tour (1 tour = 1 WorkUnit)
+    abscisse nombre de tour (WorkUnit), ordonnées nombre de tâches
+        -> même paramêtres : pourtant valeurs/nombres de tâches par tours pas toujours identiques
+        -> Interprétation : attention le manager/équipe doit être vigilante sur les délais car la simulation 3 se termine au bout du 29e WorkUnit alors que la deadline maximale est de 30 WorkUnit.
+        
+        
+NE PAS OUBLIER DE PRÉCISER QUE CE SONT DES PRÉVISIONS ET QU'IL Y A DE L'ALÉATOIRE

@@ -34,7 +34,8 @@ public class LoggerSoup {
                 countOptionnal++;
             }
         }
-        System.out.println(nbTour + "\t" + countMandatory + "\t" + countOptionnal);
+        int nbTask = countMandatory + countOptionnal;
+        System.out.println(nbTask);
     }
 
 }
